@@ -1,0 +1,47 @@
+CREATE TABLE carros (
+	--SERIAL: auto increment, atualiza  o valor do Id automatico a cada nova linha inserida na tabela.
+	id SERIAL PRIMARY KEY,
+	--NOT NULL: A coluna indica que a coluna nao pode ser vazia.
+	nome VARCHAR(255) NOT NULL, --VARCHAR: aceita todos o tipos de letras numeros e caracteres.
+	modelo VARCHAR(255) NOT NULL,
+	ano INTEGER NOT NULL, -- MIN 1800 MAX 2024 faz um filtro de qaunto pode aceitar,INTEGER: somente Numeros
+	preco DECIMAL(10,2) NOT NULL, -- DECIMAL: por que pode haver ","
+	marca VARCHAR(255) NOT NULL,
+	acessorios VARCHAR(255), -- Sem o NOT NULL fica campo nao obrigatorio.
+	fabricacao BOOLEAN DEFAULT TRUE -- BOOLEAN aceita somente TRUE or FALSE
+);
+
+--Para excluir a ABA SQL informa o o comando para excluir a tabela.
+-- DROP TABLE IF EXISTS public.carros; pode ou nao ter o public. neste caso, devido a estar no SCHEMA(padrao).
+
+--Inserir dados na Tabela.
+INSERT INTO CARROS (nome, modelo, ano, preco, marca, acessorios, fabricacao)
+	VALUES('Gol','Gtr',2002,'45500.00','volksvagen', 'som, calota', false);
+	
+--Inserindo varias linhas de uma vez.
+INSERT INTO CARROS (nome, modelo, ano, preco, marca, fabricacao)
+	VALUES
+	('Onix','PREMIER',2023,'125000.00','Chevrolet', true),
+	('Corola','Altis',2024,'180500.00','Toyota', false);
+	
+--selecionando todas as colunas(*)
+SELECT * FROM public.carros;
+
+--Selecionando algumas colunas
+SELECT ano,preco,fabricacao FROM public.carros;
+
+--Select com ordenacao
+select * from carros order by id desc
+
+--Select com ordenacao na string(alfabetica)
+select * from carros order by nome asc 
+
+--Select com condicao especifica
+select * from carros where fabricacao is false
+
+--Select com condicao e ordenacao
+select * from carros where fabricacao is false order by nome asc
+
+
+--Apagar uma linha
+DELETE FROM carros WHERE nome = 'Corola';
